@@ -5,7 +5,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  OneToMany,
+  ManyToMany,
 } from 'typeorm';
+import { Project } from './project.entity';
 
 @Entity({
   name: 'users',
@@ -45,6 +48,12 @@ export class User {
     nullable: true,
   })
   phone: string;
+
+  @OneToMany(() => Project, (project) => project.user)
+  projects_team: Project[];
+
+  @ManyToMany((type) => Project, (project) => project.users)
+  projects: Project[];
 
   @CreateDateColumn()
   created_at: Date;
