@@ -12,6 +12,12 @@ import {
 } from 'typeorm';
 import { User } from './user.entity';
 
+export enum statusProject {
+  PENDIENTE = 'PENDIENTE',
+  EN_PROCESO = 'EN_PROCESO',
+  FINALIZADO = 'FINALIZADO',
+}
+
 @Entity({
   name: 'projects',
 })
@@ -25,7 +31,11 @@ export class Project {
   @Column()
   description: string;
 
-  @Column({ default: false })
+  @Column({
+    type: 'enum',
+    enum: statusProject,
+    default: statusProject.PENDIENTE,
+  })
   status: boolean;
 
   @Column()

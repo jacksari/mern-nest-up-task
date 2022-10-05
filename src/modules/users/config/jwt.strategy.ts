@@ -26,7 +26,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       where: { email },
       select: ['id', 'email', 'firstName', 'lastName'],
     });
-    // //console.log('USER', user);
+    // console.log('USER', user);
 
     if (!user) {
       throw new UnauthorizedException('Debe loguearse para tener acceso.');
