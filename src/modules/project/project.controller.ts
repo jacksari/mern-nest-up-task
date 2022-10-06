@@ -15,7 +15,7 @@ export class ProjectController {
   }
 
   @Post()
-  @UseGuards(AuthGuard())
+  // @UseGuards(AuthGuard())
   async createProject(
     @Body() createProjectDto: CreateProjectDto,
     @CurrentUser() user: User,

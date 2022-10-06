@@ -21,20 +21,6 @@ export class ProjectService {
   }
 
   async findAll() {
-    return await this.projectsRepository.query(`
-      select  
-        p.name, 
-        p.description, 
-        p.status, 
-        p.date, 
-        p.client, 
-        json_object(
-          'name', CONCAT(u.firstName,' ',u.lastName),
-          'email', u.email ,
-          'status',u.status 
-        ) user
-      from projects p
-      left join users u on u.id = p.user_id 
-    `);
+    return await this.projectsRepository.query(`call get_projects();`);
   }
 }
