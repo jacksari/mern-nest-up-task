@@ -1,11 +1,11 @@
 import { JwtService } from '@nestjs/jwt';
 
 async function assignJwtToken(
-  email: string,
+  uid: string,
   jwtService: JwtService,
 ): Promise<string> {
   return jwtService.sign({
-    email: email,
+    uid: uid,
   });
 }
 

@@ -5,12 +5,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './modules/auth/auth.module';
 import { TaskModule } from './modules/task/task.module';
 import { UsersModule } from './modules/users/users.module';
-import { User } from './entities/user.entity';
-import { Project } from './entities/project.entity';
 import { ProjectModule } from './modules/project/project.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
+    }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -18,7 +21,7 @@ import { ProjectModule } from './modules/project/project.module';
       username: 'root',
       password: 'root',
       database: 'up_task',
-      entities: [User, Project],
+      entities: ['dist/entities/*.js'],
       synchronize: true,
     }),
     AuthModule,

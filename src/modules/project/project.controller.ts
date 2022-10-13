@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
-import { AuthGuard } from '@nestjs/passport';
 import { User } from 'src/entities/user.entity';
 import { CurrentUser } from '../users/config/current-user.decorator';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('project')
 export class ProjectController {
@@ -15,7 +15,7 @@ export class ProjectController {
   }
 
   @Post()
-  // @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard())
   async createProject(
     @Body() createProjectDto: CreateProjectDto,
     @CurrentUser() user: User,

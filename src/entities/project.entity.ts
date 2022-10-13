@@ -36,7 +36,7 @@ export class Project {
     enum: statusProject,
     default: statusProject.PENDIENTE,
   })
-  status: boolean;
+  status: statusProject;
 
   @Column()
   date: Date;

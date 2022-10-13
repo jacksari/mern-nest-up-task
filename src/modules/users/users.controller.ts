@@ -1,16 +1,10 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  UseGuards,
-  Request,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from 'src/entities/user.entity';
 import { CurrentUser } from './config/current-user.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
+import { UserRoleGuard } from './guards/user-role.guard';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -18,7 +12,7 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Get()
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard(), UserRoleGuard)
   findAll(): Promise<User[]> {
     return this.usersService.findAll();
   }
@@ -36,7 +30,7 @@ export class UsersController {
 
   @Get('profile')
   @UseGuards(AuthGuard())
-  async getUserByToken(@CurrentUser() user: User) {
-    return this.usersService.findOne(user.id);
+  async getUserByToken(@CurrentUser('uid') userUid: string) {
+    return this.usersService.checkAuthStatus(userUid);
   }
 }

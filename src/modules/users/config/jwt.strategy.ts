@@ -5,6 +5,7 @@ import { jwtConstants } from './constants';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
+import { statusUser } from '../../../entities/user.entity';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -20,16 +21,19 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    const { email } = payload;
+    const { uid } = payload;
     // console.log('payload', payload);
-    const user = await this.usersRepository.findOne({
-      where: { email },
-      select: ['id', 'email', 'firstName', 'lastName'],
-    });
-    // console.log('USER', user);
+    const user = await this.usersRepository.findOneBy({ uid });
 
     if (!user) {
       throw new UnauthorizedException('Debe loguearse para tener acceso.');
+    }
+
+    if (user.status === statusUser.INACTIVO) {
+      throw new UnauthorizedException({
+        ok: false,
+        message: 'El usuario está inactivo',
+      });
     }
     return user;
   }
