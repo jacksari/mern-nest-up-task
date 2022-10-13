@@ -7,6 +7,7 @@ import { TaskModule } from './modules/task/task.module';
 import { UsersModule } from './modules/users/users.module';
 import { ProjectModule } from './modules/project/project.module';
 import { ConfigModule } from '@nestjs/config';
+import { MessagesWsModule } from './modules/messages-ws/messages-ws.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { ConfigModule } from '@nestjs/config';
     TaskModule,
     UsersModule,
     ProjectModule,
+    MessagesWsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

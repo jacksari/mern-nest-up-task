@@ -16,6 +16,7 @@ const task_module_1 = require("./modules/task/task.module");
 const users_module_1 = require("./modules/users/users.module");
 const project_module_1 = require("./modules/project/project.module");
 const config_1 = require("@nestjs/config");
+const messages_ws_module_1 = require("./modules/messages-ws/messages-ws.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -39,6 +40,7 @@ AppModule = __decorate([
             task_module_1.TaskModule,
             users_module_1.UsersModule,
             project_module_1.ProjectModule,
+            messages_ws_module_1.MessagesWsModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
